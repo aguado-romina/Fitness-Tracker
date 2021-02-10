@@ -12,13 +12,13 @@ module.exports = (app) => {
   });
 
   app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({}, (err, workouts) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(workouts);
-      }
-    });
+    db.Workout.find({})
+      .then((workout) => {
+        res.json(workout);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   });
 
   app.put("/api/workouts/:workout", ({ params, body }, res) => {

@@ -1,4 +1,5 @@
 const db = require("../models");
+const { Mongoose, Types } = require("mongoose");
 module.exports = (app) => {
   app.get("/api/workouts", (req, res) => {
     db.Workout.find({}, (err, workouts) => {
@@ -21,20 +22,26 @@ module.exports = (app) => {
   });
 
   app.put("/api/workouts/:workout", ({ params, body }, res) => {
-    console.log(params, body);
-    db.Workout.findOneAndUpdate(
-      { _id: params.workout },
-      { $push: { excercises: body } },
+    console.log("hi", params.workout);
+    db.Workout.findByIdAndUpdate(
+      params.workout.trim(),
+      { $push: { exercises: body } },
       { new: true, upsert: true, useFindandModify: false }
+      //
       //   (updateWorkout) => {
       //     res.json(updatedWorkout);
       //   }
       //   (updateWorkout) => {
       //     res.json(updatedWorkout);
       //   }
-    ).then((updateWorkout) => {
-      res.json(updatedWorkout);
-    });
+    )
+      .then((updateWorkout) => {
+        console.log(updateWorkout);
+        res.json(updateWorkout);
+      })
+      .catch((err) => {
+        console.log("OH NO", err);
+      });
   });
 
   app.post("/api/workouts", (req, res) => {

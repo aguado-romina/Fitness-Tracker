@@ -17,15 +17,12 @@ app.use(express.static("public"));
 //   useNewUrlParser: true,
 // });
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/FITNESS-TRACKER",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fittrack", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 
 require("./routes/api-routes")(app);
 require("./routes/html-routes")(app);

@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +18,7 @@ app.use(express.static("public"));
 //   useNewUrlParser: true,
 // });
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fittrack", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fittracker", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,

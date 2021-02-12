@@ -1,17 +1,7 @@
 const db = require("../models");
-const { Mongoose, Types } = require("mongoose");
+// const { Mongoose, Types } = require("mongoose");
 module.exports = (app) => {
   app.get("/api/workouts", (req, res) => {
-    db.Workout.find({}, (err, workouts) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(workouts);
-      }
-    });
-  });
-
-  app.get("/api/workouts/range", (req, res) => {
     db.Workout.find({})
       .then((workout) => {
         res.json(workout);
@@ -19,6 +9,13 @@ module.exports = (app) => {
       .catch((err) => {
         res.json(err);
       });
+    // db.Workout.find({}, (err, workouts) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     res.json(workouts);
+    //   }
+    // });
   });
 
   app.put("/api/workouts/:id", (req, res) => {
@@ -42,11 +39,23 @@ module.exports = (app) => {
 
   app.post("/api/workouts", (req, res) => {
     db.Workout.create({}).then((newWorkout) => {
+      console.log(newWorkout.day.getDay());
       res.json(newWorkout);
     });
   });
-};
 
+  app.get("/api/workouts/range", (req, res) => {
+    db.Workout.find({})
+      .then((workout) => {
+        console.log(workout);
+        res.json(workout);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+};
+//-------------------------------------------------------//
 // console.log("hi", params.workout);
 // db.Workout.findByIdAndUpdate(
 //   params.workout.trim(),
@@ -72,3 +81,4 @@ module.exports = (app) => {
 // });
 
 // };
+//----------------------------------------------------//
